@@ -40,7 +40,7 @@ int RS1count = 0, RS2count = 0;
 bool change = 0;
 bool unit1 = 0, unit2 = 0, unit3 = 0;
 int n = 0;
-int cycle = 0;
+int cycle = 1;
 int busycount1 = 0, busycount2 = 0;
 
 void input() {
@@ -372,11 +372,13 @@ void exec() {
 		dispatch();
 		writeback();
 		if (change == 1) {
+			if (busycount1 == 0 && busycount2 == 0) {
+				RAT.clear();
+			}
 			output(cout);
 			output(outFile);
 		}
 		if (busycount1 == 0 && busycount2 == 0) {
-			RAT.clear();
 			break;
 		}
 		++cycle;
